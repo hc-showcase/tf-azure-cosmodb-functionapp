@@ -1,0 +1,30 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "cosmosDBTrigger",
+      "name": "input",
+      "direction": "in",
+      "connectionStringSetting": "mkaesz-cosmosdb_DOCUMENTDB",
+      "databaseName": "products",
+      "collectionName": "clothes",
+      "leaseCollectionName": "leases",
+      "createLeaseCollectionIfNotExists": true
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ]
+}
