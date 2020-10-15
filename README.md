@@ -1,6 +1,8 @@
-# tf-azure-functionapp
+# tf-azure-cosmosdb-functionapp
 
-This repo creates a Azure Function app and deploys a Zip file containing a Python application. The Zip file has to be created upfront and stored locally.
+This repo creates a CosmosDB and a Azure Function app and deploys a Zip file containing a Python application. The Zip file has to be created upfront and stored locally.
+
+The function gets triggered when an insert of/update to a document happens.
 
 ## Install tools
 
@@ -15,27 +17,14 @@ Execute ```az login``` and follow the instructions in your browser or ```az logi
 ## Clone this repo
 
 ```
+git clone https://github.com/hc-showcase/tf-azure-cosmodb-functionapp.git
 
+cd tf-azure-cosmodb-functionapp
 ```
+
 ### Build the Zip
 
 The Zip file must contain the functions and the host.json file in the root. It must not container a root folder.
-
-The Zip must look like that:
-```
-mkaesz@arch ~/w/tf-azure-cosmodb-functionapp (master)> unzip -l dist.zip
-Archive:  dist.zip
-  Length      Date    Time    Name
----------  ---------- -----   ----
-        0  2020-10-15 20:29   CosmosDBTrigger/
-      193  2020-10-15 20:10   CosmosDBTrigger/__init__.py
-      370  2020-10-15 20:29   CosmosDBTrigger/function.json
-      288  2020-10-15 16:53   host.json
-      109  2020-10-15 16:53   requirements.txt
----------                     -------
-      960                     5 files
-
-```
 
 To build the Zip I used 7z:
 ```
@@ -64,7 +53,23 @@ Archive size: 2717 bytes (3 KiB)
 Everything is Ok
 ```
 
-The repository already contains a dist.zip that can be immediately be used without the build step.
+The Zip must look like that:
+```
+mkaesz@arch ~/w/tf-azure-cosmodb-functionapp (master)> unzip -l dist.zip
+Archive:  dist.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2020-10-15 20:29   CosmosDBTrigger/
+      193  2020-10-15 20:10   CosmosDBTrigger/__init__.py
+      370  2020-10-15 20:29   CosmosDBTrigger/function.json
+      288  2020-10-15 16:53   host.json
+      109  2020-10-15 16:53   requirements.txt
+---------                     -------
+      960                     5 files
+
+```
+
+The repository already contains a dist.zip that can immediately be used without the build step.
 
 ### Set your Subscription ID
 
@@ -83,12 +88,12 @@ terraform apply
 
 ### Insert a document
 
-The repository contains a shell script to create documents. The values of the db, collection, etc. are hard-coded in the script and align with the Terraform config.
+The repository contains a shell script to create/update documents. The values of the db, collection, etc. are hard-coded in the script and align with the Terraform config.
 
-The script is from https://github.com/Krumelur/AzureScripts
+The script is reused from https://github.com/Krumelur/AzureScripts
 
 ```
-mkaesz@arch ~/w/tf-azure-cosmodb-functionapp (master)> bash cosmosdb_create_document.sh
+mkaesz@arch ~/w/tf-azure-cosmodb-functionapp (master)> bash scripts/cosmosdb_create_document.sh
 Masterkey: M30N2tOr9iQnXBH0lZNCAi3FFW8Ne2dyuPkBB5rpYp4Hkd1GeNRS88C0QE0Ae8WI01x75brre8U2UKtFdL9K5g==
 Date:  Thu, 15 Oct 2020 18:45:24 GMT
 Signature: post\ndocs\ndbs/products/colls/clothes\nthu, 15 oct 2020 18:45:24 gmt\n\n
