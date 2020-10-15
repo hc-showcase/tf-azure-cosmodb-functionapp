@@ -166,6 +166,7 @@ Response content:
   "name": "socks"
 }
 Command ran in 0.577 seconds (init: 0.067, invoke: 0.511)
+```
 
 ### Check the results
 
