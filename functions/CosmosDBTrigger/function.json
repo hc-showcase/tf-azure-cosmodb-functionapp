@@ -1,0 +1,15 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "connectionStringSetting": "COSMOSDB_CONNECTION_STRING",
+      "databaseName": "products",
+      "collectionName": "clothes",
+      "leaseCollectionName": "leases",
+      "createLeaseCollectionIfNotExists": true
+    }
+  ]
+}

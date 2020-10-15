@@ -4,11 +4,10 @@
 #############################################################################
 
 # This will trigger a browser-based login.
-# az login
+#az login
 
-
-resourceGroup="CosmosDB-rg"
-comsosDbInstanceName="mkaesz-cosmosdb"
+resourceGroup="AzureFunction"
+comsosDbInstanceName="mkaesz-cosmos"
 dbName="products"
 containerName="clothes"
 partitionKeyValue="asd123"

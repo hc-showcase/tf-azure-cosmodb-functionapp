@@ -29,7 +29,7 @@ resource "random_string" "storage_name" {
 }
 
 variable "cosmos_db_account_name" {
-  default = "mkaesz-cosmosdb"
+  default = "mkaesz-cosmos"
 }
 
 variable "failover_location" {
@@ -151,7 +151,7 @@ data "azurerm_storage_account_sas" "storage_sas" {
   }
 }
 
-resource "azurerm_function_app" "function" {
+resource "azurerm_function_app" "function2" {
   name                       = random_string.storage_name.result
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
@@ -165,7 +165,7 @@ resource "azurerm_function_app" "function" {
     FUNCTION_APP_EDIT_MODE       = "readonly"
     FUNCTIONS_EXTENSION_VERSION  = "~3"
     https_only                   = true
-
+    COSMOSDB_CONNECTION_STRING   = azurerm_cosmosdb_account.acc.connection_strings[0]
     HASH                         = base64encode(filesha256("./dist.zip"))
     WEBSITE_RUN_FROM_PACKAGE     = "https://${azurerm_storage_account.storage.name}.blob.core.windows.net/${azurerm_storage_container.storage_container.name}/${azurerm_storage_blob.storage_blob.name}${data.azurerm_storage_account_sas.storage_sas.sas}"
   }

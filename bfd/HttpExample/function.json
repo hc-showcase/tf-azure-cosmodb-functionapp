@@ -15,7 +15,7 @@
       "type": "cosmosDBTrigger",
       "name": "input",
       "direction": "in",
-      "connectionStringSetting": "mkaesz-cosmosdb_DOCUMENTDB",
+      "connectionStringSetting": "COSMOSDB_CONNECTION_STRING",
       "databaseName": "products",
       "collectionName": "clothes",
       "leaseCollectionName": "leases",
